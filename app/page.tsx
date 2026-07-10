@@ -620,6 +620,42 @@ export default function AIStrategicIntelligenceVault() {
   const [utcTime, setUtcTime] = useState("");
   const [terminalLogs, setTerminalLogs] = useState<string[]>([]);
 
+  // Google Picker API State
+  const [googleAccessToken, setGoogleAccessToken] = useState<string | null>(null);
+  const [gapiLoaded, setGapiLoaded] = useState(false);
+
+  // Load Google API and Picker scripts dynamically
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const script = document.createElement("script");
+      script.src = "https://apis.google.com/js/api.js";
+      script.async = true;
+      script.defer = true;
+      script.onload = () => {
+        try {
+          if ((window as any).gapi) {
+            (window as any).gapi.load("picker", {
+              callback: () => {
+                setGapiLoaded(true);
+                addTerminalLog("Google Picker API module loaded successfully.");
+              },
+            });
+          }
+        } catch (err: any) {
+          console.error("Failed to load Google Picker module:", err);
+        }
+      };
+      document.body.appendChild(script);
+      return () => {
+        try {
+          document.body.removeChild(script);
+        } catch (err) {
+          // ignore if already removed
+        }
+      };
+    }
+  }, []);
+
   // DOM node references for visual SVG connections
   const containerRef = useRef<HTMLDivElement>(null);
   const leftColRef = useRef<HTMLDivElement>(null);
@@ -904,6 +940,133 @@ export default function AIStrategicIntelligenceVault() {
     downloadAnchor.click();
     downloadAnchor.remove();
     addTerminalLog("Strategic Vault files JSON package exported successfully.");
+  };
+
+  // Handle launching Google Picker
+  const handleOpenGooglePicker = async () => {
+    if (typeof window === "undefined") return;
+    if (!gapiLoaded || !(window as any).google || !(window as any).google.picker) {
+      addTerminalLog("Error: Google Picker API script is not fully loaded yet. Please try again in a moment.");
+      return;
+    }
+
+    let token = googleAccessToken;
+    if (!token) {
+      addTerminalLog("Establishing secure Google Drive connection session...");
+      try {
+        const { signInWithPopup, GoogleAuthProvider } = await import("firebase/auth");
+        const provider = new GoogleAuthProvider();
+        provider.addScope("https://www.googleapis.com/auth/drive.file");
+        provider.addScope("https://www.googleapis.com/auth/drive.metadata.readonly");
+        const result = await signInWithPopup(auth, provider);
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        if (credential?.accessToken) {
+          token = credential.accessToken;
+          setGoogleAccessToken(token);
+          addTerminalLog("Google OAuth session authorized. Access Token cached.");
+        } else {
+          addTerminalLog("Authentication failed: No access token returned.");
+          return;
+        }
+      } catch (err: any) {
+        addTerminalLog(`OAuth Authorization failure: ${err.message}`);
+        return;
+      }
+    }
+
+    try {
+      addTerminalLog("Opening interactive Google Picker interface...");
+      const pickerOrigin =
+        window.location.ancestorOrigins && window.location.ancestorOrigins.length > 0
+          ? window.location.ancestorOrigins[window.location.ancestorOrigins.length - 1]
+          : window.location.origin;
+
+      const view = new (window as any).google.picker.DocsView((window as any).google.picker.ViewId.DOCS);
+      view.setMimeTypes("text/plain,text/markdown,application/vnd.google-apps.document");
+
+      const picker = new (window as any).google.picker.PickerBuilder()
+        .addView(view)
+        .setOAuthToken(token)
+        .setCallback(async (data: any) => {
+          if (data.action === (window as any).google.picker.Action.PICKED) {
+            const pickedDoc = data.docs[0];
+            const fileId = pickedDoc.id;
+            const fileName = pickedDoc.name;
+            const mimeType = pickedDoc.mimeType;
+            addTerminalLog(`Selected Google Drive asset: "${fileName}" (ID: ${fileId})`);
+
+            addTerminalLog(`Fetching document stream payload...`);
+            try {
+              let content = "";
+              if (mimeType === "application/vnd.google-apps.document") {
+                const res = await fetch(
+                  `https://www.googleapis.com/drive/v3/files/${fileId}/export?mimeType=text/plain`,
+                  {
+                    headers: { Authorization: `Bearer ${token}` },
+                  }
+                );
+                if (res.ok) {
+                  content = await res.text();
+                } else {
+                  content = `# Google Doc: ${fileName}\n\nCould not fetch content automatically (Export API returned status ${res.status}).`;
+                }
+              } else {
+                const res = await fetch(
+                  `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`,
+                  {
+                    headers: { Authorization: `Bearer ${token}` },
+                  }
+                );
+                if (res.ok) {
+                  content = await res.text();
+                } else {
+                  content = `# Google Drive File: ${fileName}\n\nCould not fetch content automatically (Media API returned status ${res.status}).`;
+                }
+              }
+
+              const targetFolder = "00_Inbox";
+              const cleanFileName = fileName.endsWith(".md") ? fileName : `${fileName}.md`;
+              const filePath = `${targetFolder}/${cleanFileName}`;
+
+              let finalPath = filePath;
+              if (vaultFiles.some((f) => f.path === filePath)) {
+                addTerminalLog(`Conflict: File already exists at ${filePath}. Appending unique identifier.`);
+                let count = 1;
+                let newPath = `${targetFolder}/${cleanFileName.replace(".md", "")}_${count}.md`;
+                while (vaultFiles.some((f) => f.path === newPath)) {
+                  count++;
+                  newPath = `${targetFolder}/${cleanFileName.replace(".md", "")}_${count}.md`;
+                }
+                finalPath = newPath;
+              }
+
+              const newFile: VaultFile = {
+                path: finalPath,
+                name: finalPath.split("/")[1],
+                folder: targetFolder,
+                content: content || `# ${fileName}\nEmpty file imported from Google Drive.`,
+                updatedAt: new Date().toISOString(),
+                tags: ["google-drive", "imported"]
+              };
+
+              const updated = [...vaultFiles, newFile];
+              setVaultFiles(updated);
+              setActiveFile(newFile);
+              setEditingContent(newFile.content);
+              addTerminalLog(`Successfully synchronized: "${finalPath}"`);
+              
+              localStorage.setItem("strategic_vault_files", JSON.stringify(updated));
+            } catch (fetchErr: any) {
+              addTerminalLog(`Fetch failure: Could not retrieve document payload: ${fetchErr.message}`);
+            }
+          }
+        })
+        .setOrigin(pickerOrigin)
+        .build();
+      picker.setVisible(true);
+    } catch (pickerErr: any) {
+      addTerminalLog(`Error launching Google Picker UI: ${pickerErr.message}`);
+    }
   };
 
   // Box Breathing Space Dynamic Interval Loop
@@ -1914,6 +2077,34 @@ export default function AIStrategicIntelligenceVault() {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="w-full bg-zinc-900 text-xs text-zinc-300 pl-8 pr-3 py-2 rounded border border-zinc-800 focus:outline-none focus:border-violet-500 font-mono"
                   />
+                </div>
+
+                <div className="pt-1">
+                  <button
+                    onClick={handleOpenGooglePicker}
+                    className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-gradient-to-r from-violet-950 to-indigo-950/60 hover:from-violet-900 hover:to-indigo-900 border border-violet-500/30 hover:border-violet-500/50 text-violet-200 hover:text-white text-xs font-mono font-medium rounded transition duration-150 cursor-pointer shadow-md shadow-violet-950/20"
+                    title="Import text or Google Docs directly from your Google Drive"
+                  >
+                    <Upload className="h-3.5 w-3.5 text-violet-400" />
+                    <span>Import Google Drive...</span>
+                  </button>
+                  {googleAccessToken && (
+                    <div className="mt-1.5 flex items-center justify-between px-2 py-1 bg-zinc-900/45 border border-zinc-800/45 rounded text-[9px] font-mono text-zinc-500">
+                      <span className="flex items-center gap-1.5">
+                        <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Drive Authorized
+                      </span>
+                      <button
+                        onClick={() => {
+                          setGoogleAccessToken(null);
+                          addTerminalLog("Cleared Google Drive access token session cache.");
+                        }}
+                        className="hover:text-red-400 transition"
+                      >
+                        Disconnect
+                      </button>
+                    </div>
+                  )}
                 </div>
 
                 {allTags.length > 0 && (
