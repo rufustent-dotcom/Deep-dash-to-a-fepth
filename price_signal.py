@@ -40,6 +40,7 @@ class PriceFeed:
 
     def _next_price(self) -> float:
         delta = random.gauss(0, self.volatility)
+        # Mean-revert slightly toward base to avoid drift.
         reversion = (self.base_price - self._current_price) * 0.05
         self._current_price = max(0.01, self._current_price + delta + reversion)
         return round(self._current_price, 2)
@@ -60,7 +61,11 @@ class PriceFeed:
 
 
 def detect_trending_peak(feed: PriceFeed, window: int = 5) -> Iterator[PriceEvent]:
-    """Yield events that represent a trending peak above the threshold."""
+    """Yield only the events that represent a trending peak above the threshold.
+
+    A peak is defined as a price that is both above the profit threshold and
+    higher than all prices in the preceding *window* ticks.
+    """
     history: list[float] = []
     for event in feed.stream():
         history.append(event.price)

@@ -27,7 +27,13 @@ class DeploymentRecord:
 
 
 class JamfNowDeployer:
-    """Simulates the Jamf Now Blueprint deployment pipeline."""
+    """Simulates the Jamf Now Blueprint deployment pipeline.
+
+    In a real implementation this class would call the Jamf Now REST API to:
+      1. Upload the .pkg file to the distribution point.
+      2. Attach it to a Blueprint.
+      3. Push the Blueprint to all managed devices.
+    """
 
     def __init__(
         self,
@@ -39,9 +45,13 @@ class JamfNowDeployer:
         self.history: list[DeploymentRecord] = []
 
     def deploy(self, action: Action, event: PriceEvent) -> DeploymentRecord:
-        """Push *action.package* to the entire managed fleet."""
+        """Push *action.package* to the entire managed fleet.
+
+        Returns a DeploymentRecord describing the outcome.
+        """
         print(f"  [deploy] Pushing '{action.package}' to {self.fleet_size} device(s) …")
 
+        # Simulate network/API latency.
         time.sleep(0.1)
 
         success = random.random() > self.simulate_failure_rate
