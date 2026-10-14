@@ -23,6 +23,8 @@ import {
   Volume2,
   FileCode,
   Compass,
+  Zap,
+  RotateCcw,
   ArrowRight,
   Shield,
   Heart,
@@ -53,6 +55,16 @@ import {
   PostComment
 } from "@/lib/social-db";
 import { auth, isRealFirebase } from "@/lib/firebase";
+import {
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
 
 // Define TypeScript structures
 interface VaultFile {
@@ -306,31 +318,403 @@ Capture thoughts, market signals, or voice transcriptions here first.
 We need to monitor how fast **Enterprise Copilot Adoption** is strengthening **AI Compresses Time**. Look at enterprise developer performance reports.`
   },
   {
+    path: "00_Inbox/INDEX.md",
+    name: "INDEX.md",
+    folder: "00_Inbox",
+    updatedAt: "2026-07-10T19:20:00Z",
+    tags: ["inbox", "index"],
+    content: `# VAULT INDEX
+
+## CORE FILES
+- CORE_THESIS.md
+- CORE_PATTERNS.md
+- PROJECTS.md
+- SYSTEMS.md
+- BRAIN_DUMP.md
+
+---
+
+## ACTIVE THEMES
+- AI infrastructure
+- knowledge systems
+- automation
+- strategic leverage
+- market intelligence
+
+---
+
+## OPEN QUESTIONS
+- What industries adapt fastest to AI?
+- What systems become obsolete?
+- What creates durable leverage?
+- What becomes commoditized?
+
+---
+
+## MISSING AREAS
+- finance
+- infrastructure
+- energy
+- geopolitics
+- labor displacement
+- AI regulation
+
+---
+
+## PRIORITY PROJECTS
+- AI Strategic Intelligence Vault`
+  },
+  {
+    path: "00_Inbox/NOTES.md",
+    name: "NOTES.md",
+    folder: "00_Inbox",
+    updatedAt: "2026-07-10T19:20:00Z",
+    tags: ["inbox", "notes"],
+    content: `# CORE IDEAS
+
+# MOMENTUM
+
+# QUESTIONS
+
+# BREATHING SPACE
+
+# DECISIONS
+
+# CORE IDEAS
+
+- AI restructures knowledge work faster than institutions adapt.
+- Simpler systems create better momentum.
+- Clarity scales better than complexity.
+
+---
+
+# QUESTIONS
+
+- What actually matters?
+- What improves execution?
+- What creates unnecessary recursion?
+
+---
+
+# MOMENTUM
+
+- Consistency builds confidence.
+- Reduced friction increases movement.
+- Delivery matters now, not eventually.
+
+---
+
+# BREATHING SPACE
+
+Pause.
+Reduce noise.
+Do not force conclusions.
+Not every idea requires structure.
+
+---
+
+# DECISIONS
+
+- Keep the system simple.
+- Reduce folder complexity.
+- Focus on usable execution.
+- /project
+│
+├── notes.md
+│     Ideas and important thoughts
+│
+├── decisions.md
+│     Things you decided to do
+│
+├── breathing_space.md
+│     Calm thinking and reducing overload
+│
+└── /system
+      │
+      └── all_skills.json
+            Machine abilities and system functions
+            # OPENAI
+
+## Role
+
+AI infrastructure and model provider.
+
+## Products
+
+- ChatGPT
+- API Platform
+- Enterprise AI
+
+## Strengths
+
+- Distribution
+- Research velocity
+- Ecosystem adoption
+
+## Risks
+
+- Compute costs
+- Competition
+- Regulation
+/vault
+ ├── /entities
+ │     ├── OpenAI.md
+ │     ├── Microsoft.md
+ │     ├── NVIDIA.md
+ │     ├── Anthropic.md
+ │
+ ├── /timelines
+ │     ├── TIMELINE_2025.md
+ │     ├── TIMELINE_2026.md
+ │
+ ├── /systems
+ ├── /projects
+ ├── /thesis
+ ├── /signals
+ ├── /maps
+ └── /patterns
+/entities
+   /companies
+   /technologies
+   /markets
+   /people
+   /concepts
+   /systems
+/entities
+/projects
+/timelines
+/signals
+/systems
+/vault
+   /entities
+      /companies
+         OpenAI.md
+         Microsoft.md
+         NVIDIA.md
+         notes → structured intelligence
+         Capture
+ → Classify
+   → Link
+     → Embed
+       → Retrieve
+         → Reason
+         Entities
+Relationships
+Timelines
+Signals
+Projects
+Systems
+Knowledge Retrieval`
+  },
+  {
     path: "01_Projects/PROJECTS.md",
     name: "PROJECTS.md",
     folder: "01_Projects",
-    updatedAt: "2026-05-23T21:48:00Z",
+    updatedAt: "2026-07-10T19:20:00Z",
     tags: ["projects", "status"],
-    content: `# Active & Future Strategic Projects
+    content: `## AI Research Mapping Platform
 
-Managed dynamically through the decision filters inside [[DECISION_FILTER]].
+Purpose:
+Create a structured system that organizes AI research, market intelligence, and operational workflows into one connected architecture.
+# PROJECTS
 
 ## Active Projects
 
-### AI Strategic Intelligence Vault
-- **Status**: Active & Deploying
-- **Objective**: Build an interactive, AI-assisted pattern mapping system and Obsidian-style database to convert signals into actionable leverage.
-- **Market**: Strategy, knowledge workers, and executive researchers.
-- **AI Leverage**: Synthesis, pattern linkage recommendations, and automated vault filing system [[all_skills]].
-- **Revenue Model**: High-tier business subscriptions or proprietary intelligence products.
-- **Next Actions**: Expand signals mapping and launch dynamic real-time integrations.
+### Project Name
+Status:
+Objective:
+Market:
+AI Usage:
+Revenue Potential:
+Next Step:
 
 ---
 
 ## Future Projects
-- **Project Intrepid**: Multi-agent orchestration tracking pipeline.
-- **Knowledge Architecture Hub**: Enterprise automated document pipeline.
-- **Automated Competitor Tracker**: Continuous signal-to-pattern mapper.`
+
+---
+
+## Archived Projects
+## Active Projects
+
+### AI Strategic Intelligence Vault
+
+Status:
+Active
+
+Objective:
+Build a structured AI-assisted intelligence and opportunity mapping system.
+
+Market:
+AI productivity and strategic research systems.
+
+AI Usage:
+Research synthesis, pattern recognition, workflow support, and idea organization.
+
+Revenue Potential:
+High long-term potential through tools, consulting, infrastructure, or automation systems.
+
+Next Step:
+Expand signals, patterns, and operational workflows.
+
+## VALUE LAYERS
+
+- What creates leverage?
+- What saves time?
+- What increases decision quality?
+- What organizations will pay for?
+- What scales?
+- What compounds?
+## Economic Direction
+
+Core Principle:
+Structured intelligence systems can generate economic leverage through:
+- automation,
+- research compression,
+- strategic analysis,
+- and scalable information systems.
+
+Target Outcomes:
+- increase capability
+- increase leverage
+- increase execution speed
+- create scalable systems
+- convert insight into value
+
+Possible Paths:
+- AI tooling
+- consulting
+- research systems
+- automation infrastructure
+- intelligence products
+- # Vault
+
+/project
+│
+├── notes.md
+├── decisions.md
+├── breathing_space.md
+│
+└── /system
+      └── all_skills.json`
+  },
+  {
+    path: "01_Projects/INTREPID.md",
+    name: "INTREPID.md",
+    folder: "01_Projects",
+    updatedAt: "2026-07-10T19:20:00Z",
+    tags: ["projects", "intrepid"],
+    content: `# PROJECT INTREPID
+
+## PURPOSE
+Build an adaptive intelligence system capable of organizing:
+- signals
+- patterns
+- strategic opportunities
+- and operational knowledge.
+
+---
+
+## CORE PRINCIPLES
+- structure over chaos
+- adaptation over rigidity
+- signals over noise
+- systems over fragments
+- execution over accumulation
+
+---
+
+## OBJECTIVES
+- increase clarity
+- improve decision quality
+- track emerging patterns
+- operationalize information
+- create scalable leverage
+
+---
+
+## SYSTEM DESIGN
+Inputs:
+- research
+- observations
+- AI outputs
+- market signals
+- recurring themes
+
+Outputs:
+- insights
+- projects
+- execution
+- strategic positioning
+- value creation
+
+---
+
+## LONG TERM VISION
+Create a continuously evolving intelligence infrastructure capable of assisting:
+- reasoning,
+- organization,
+- strategic analysis,
+- and adaptive execution.
+- # INTREPID
+
+Dedicated to:
+the continuous organization of information,
+the refinement of understanding,
+and the pursuit of adaptive intelligence.
+
+Purpose:
+To build a living system capable of transforming:
+- signals into patterns,
+- patterns into insight,
+- insight into execution,
+- and execution into long-term leverage.
+
+Principles:
+- structure over chaos
+- adaptation over rigidity
+- clarity over noise
+- systems over fragments
+- continuity over stagnation
+
+The Vehicle:
+This framework exists as a vehicle for movement —
+carrying information toward:
+- better decisions,
+- stronger positioning,
+- and scalable capability.
+
+Commitment:
+Remain active.
+Remain adaptive.
+Follow evidence.
+Refine continuously.
+
+Objective:
+Build an intelligence infrastructure capable of evolving with reality rather than resisting it.`
+  },
+  {
+    path: "01_Projects/PRIORITIES.md",
+    name: "PRIORITIES.md",
+    folder: "01_Projects",
+    updatedAt: "2026-07-10T19:20:00Z",
+    tags: ["projects", "priorities"],
+    content: `# PRIORITIES
+
+## ACTIVE
+What currently matters most?
+
+## BUILD
+What should be strengthened?
+
+## REMOVE
+What creates noise or distraction?
+
+## WATCH
+What signals require continued observation?
+
+## NEXT MOVE
+What is the highest-value action right now?`
   },
   {
     path: "02_Research/CORE_THESIS.md",
@@ -393,6 +777,109 @@ Build connected operational systems that organize research, workflows, intellige
 See also: [[CORE_THESIS]] and [[DAILY_OPERATING_LOOP]].`
   },
   {
+    path: "02_Research/MAP.md",
+    name: "MAP.md",
+    folder: "02_Research",
+    updatedAt: "2026-07-10T19:20:00Z",
+    tags: ["research", "map"],
+    content: `# SYSTEM MAP
+
+## Core Thesis
+- AI + automation + structured information
+- Operational systems and scalability
+
+---
+
+## Connected Areas
+
+### Research
+- AI infrastructure
+- Automation systems
+- Market behavior
+- Organizational structure
+
+### Patterns
+- Repeated operational inefficiencies
+- Information fragmentation
+- Scaling through systems
+
+### Projects
+- Knowledge architecture
+- AI workflow systems
+- Research intelligence platform
+
+### Questions
+- What systems become most valuable?
+- What structures scale long-term?
+- How should intelligence be organized?
+
+---
+
+## Long-Term Goal
+
+Build connected operational systems that organize
+research, workflows, intelligence, and automation
+into scalable structures.   
+# VAULT MAP
+
+## Core
+- CORE_THESIS.md
+- CORE_PATTERNS.md
+- SYSTEMS.md
+
+## Research
+- RESEARCH.md
+- QUESTIONS.md
+
+## Execution
+- PROJECTS.md
+
+## Capture
+- BRAIN_DUMP.md
+
+## Archive
+- Vault/`
+  },
+  {
+    path: "02_Research/MOMENTUM.md",
+    name: "MOMENTUM.md",
+    folder: "02_Research",
+    updatedAt: "2026-07-10T19:20:00Z",
+    tags: ["research", "momentum"],
+    content: `# Momentum
+
+Connected Entities:
+- [[OpenAI]]
+
+Related Concepts:
+- [[Scalability]]`
+  },
+  {
+    path: "02_Research/TIMELINE_2026.md",
+    name: "TIMELINE_2026.md",
+    folder: "02_Research",
+    updatedAt: "2026-07-10T19:20:00Z",
+    tags: ["research", "timeline"],
+    content: `# TIMELINE 2026
+
+## January
+- AI agent adoption accelerates
+- Enterprise copilots expand
+
+## February
+- GPU shortages increase
+- Data center investments rise
+
+## March
+- Open-source LLM competition intensifies
+
+## April
+- AI customer service deployments scale
+
+## May
+- AI orchestration systems become mainstream`
+  },
+  {
     path: "03_AI/PROMPTS.md",
     name: "PROMPTS.md",
     folder: "03_AI",
@@ -412,6 +899,71 @@ Given raw industry news:
 - Identify redundant files or directories inside [[SYSTEM_MAP]].
 - Surface divergent anomalies.
 - Re-evaluate supporting assumptions against current news.`
+  },
+  {
+    path: "03_AI/OPENAI.md",
+    name: "OPENAI.md",
+    folder: "03_AI",
+    updatedAt: "2026-07-10T19:20:00Z",
+    tags: ["ai", "companies", "openai"],
+    content: `# ENTITY: OpenAI
+
+## Type
+Company
+
+## Sector
+Artificial Intelligence
+
+## Core Functions
+- LLM research
+- AI infrastructure
+- enterprise AI
+- multimodal systems
+
+## Strategic Position
+Leader in frontier AI deployment.
+
+## Revenue Drivers
+- API usage
+- enterprise licensing
+- ChatGPT subscriptions
+
+## Risks
+- regulation
+- compute costs
+- competition
+- alignment issues
+
+## Related Entities
+- [[Microsoft]]
+- [[NVIDIA]]
+- [[Anthropic]]
+- [[AI Infrastructure]]
+
+## Signals
+- Increased enterprise adoption
+- Expansion into agents
+- GPT multimodal scaling
+
+## Thesis Relevance
+Core catalyst for AI acceleration thesis.
+
+## Timeline References
+- [[TIMELINE_2025]]
+- [[TIMELINE_2026]]
+# OpenAI
+
+## Type
+Company
+
+## Sector
+Artificial Intelligence
+# OpenAI
+
+Related Concepts:
+- [[Scalability]]
+- [[Momentum]]
+- [[Knowledge_Architecture]]`
   },
   {
     path: "05_Finance/ECONOMIC_DIRECTION.md",
@@ -498,6 +1050,305 @@ Continuous intake without selective reduction leads to cognitive overload and sa
 - Space is an active part of tactical strategic intelligence.
 
 Use the box breathing mechanism inside the **Cognitive Space** tab of this system to reset active friction.`
+  },
+  {
+    path: "99_System/BREATHINGSPACE.md",
+    name: "BREATHINGSPACE.md",
+    folder: "99_System",
+    updatedAt: "2026-07-10T19:20:00Z",
+    tags: ["system", "breathing"],
+    content: `# BREATHING SPACE
+
+Continuous intake without refinement creates overload.
+
+Healthy systems require:
+- pauses,
+- filtering,
+- simplification,
+- and release mechanisms.
+
+Clarity depends not only on accumulation,
+but also on selective reduction.
+# BREATHINGSPACE
+
+Purpose:
+Maintain clarity and decision quality by reducing informational overload and recursive saturation.
+
+---
+
+## BEFORE MAJOR DECISIONS
+
+Questions:
+- What actually matters?
+- What is signal versus noise?
+- What assumptions am I making?
+- What evidence exists?
+- What can be simplified?
+- Is the system overloaded?
+
+---
+
+## REDUCTION PROCESS
+- pause intake
+- compress information
+- remove duplication
+- isolate key variables
+- return to core objectives
+
+---
+
+## WARNING SIGNS
+- endless recursion
+- over-analysis
+- fragmented focus
+- increasing complexity without value
+- inability to prioritize
+- informational fatigue
+
+---
+
+## PRINCIPLE
+Clear decisions require:
+- space,
+- structure,
+- and selective attention.
+
+Accumulation alone does not improve judgment.
+Refinement does.
+# BREATHINGSPACE
+
+Pause.
+Reduce noise.
+Return to clarity.
+
+Do not force conclusions.
+Do not force answers.
+Observe without overload.
+
+Space is part of intelligence.`
+  },
+  {
+    path: "99_System/FILTERS.md",
+    name: "FILTERS.md",
+    folder: "99_System",
+    updatedAt: "2026-07-10T19:20:00Z",
+    tags: ["system", "filters"],
+    content: `# FILTERS
+
+## KEEP
+Information that:
+- repeats,
+- shows strategic value,
+- improves decisions,
+- connects to existing patterns,
+- or creates leverage.
+
+---
+
+## ARCHIVE
+Information that is:
+- interesting but inactive,
+- uncertain,
+- low priority,
+- or disconnected from current objectives.
+
+---
+
+## REMOVE
+Information that:
+- creates noise,
+- repeats without value,
+- increases confusion,
+- or lacks operational relevance.
+
+---
+
+## SIMPLIFY
+Reduce:
+- unnecessary complexity,
+- duplicate structures,
+- overextended abstractions,
+- and recursive overload.
+
+---
+
+## RETURN TO CORE
+Questions:
+- What actually matters?
+- What improves capability?
+- What improves execution?
+- What improves clarity?`
+  },
+  {
+    path: "99_System/OPERATORS.md",
+    name: "OPERATORS.md",
+    folder: "99_System",
+    updatedAt: "2026-07-10T19:20:00Z",
+    tags: ["system", "template"],
+    content: `# PROJECT TEMPLATE
+
+## Objective
+What is being built?
+
+## Problem
+What problem does it solve?
+
+## Market
+Who needs this?
+
+## AI Leverage
+How does AI increase speed or scale?
+
+## Revenue Model
+How does it make money?
+
+## Stack
+Tools / APIs / systems
+
+## Current Stage
+Research / Prototype / Active / Scaling
+
+## Next Actions
+- [ ]
+- [ ]
+- [ ]`
+  },
+  {
+    path: "99_System/SYSTEMS.md",
+    name: "SYSTEMS.md",
+    folder: "99_System",
+    updatedAt: "2026-07-10T19:20:00Z",
+    tags: ["system", "framework"],
+    content: `# SYSTEMS
+
+## Knowledge Intake System
+How information enters the vault.
+
+## Research System
+How ideas are validated.
+
+## Project Evaluation System
+How projects are ranked.
+
+## Execution System
+How projects move from idea → deployment.
+
+## Automation System
+Tasks delegated to AI/tools.
+
+## Review Cycle
+Daily / weekly / monthly review process.
+# DECISION FILTER
+
+Does this:
+- create leverage?
+- scale?
+- automate?
+- compound?
+- align with the thesis?
+- produce long-term value?
+- # DAILY OPERATING LOOP
+
+## INPUT
+What entered the system today?
+- research
+- observations
+- ideas
+- conversations
+- market signals
+
+---
+
+## SIGNALS
+What appears important or recurring?
+
+---
+
+## PATTERNS
+Does this connect to existing trends or structures?
+
+---
+
+## IMPLICATIONS
+What changes if this signal continues?
+
+---
+
+## OPPORTUNITIES
+Can this become:
+- a project,
+- a tool,
+- a system,
+- an investment,
+- or leverage?
+
+---
+
+## EXECUTION
+What is the next concrete action?
+## Knowledge Intake System
+
+Purpose:
+Capture information before it is forgotten.
+
+Inputs:
+- research
+- observations
+- conversations
+- market trends
+- AI outputs
+
+Process:
+Information enters BRAIN_DUMP.md first, then gets refined into:
+- signals,
+- patterns,
+- projects,
+- or systems.`
+  },
+  {
+    path: "99_System/SYSTEM_HEALTH.md",
+    name: "SYSTEM_HEALTH.md",
+    folder: "99_System",
+    updatedAt: "2026-07-10T19:20:00Z",
+    tags: ["system", "health"],
+    content: `# SYSTEM HEALTH
+
+## QUESTIONS
+- Is the structure still useful?
+- What sections are inactive?
+- What creates the most value?
+- What produces noise?
+- What improves decisions?
+- What should be simplified?`
+  },
+  {
+    path: "99_System/VEHICLE.md",
+    name: "VEHICLE.md",
+    folder: "99_System",
+    updatedAt: "2026-07-10T19:20:00Z",
+    tags: ["system", "vehicle"],
+    content: `# VEHICLE
+
+Definition:
+A structured intelligence framework designed to transport information toward:
+- insight,
+- execution,
+- leverage,
+- and adaptive capability.
+
+Purpose:
+Convert signals and knowledge into forward strategic movement.
+
+Core Function:
+- organize information
+- reduce chaos
+- preserve continuity
+- increase decision quality
+- accelerate execution
+
+Principle:
+Information alone is not movement.
+Structured intelligence becomes the vehicle for movement.`
   }
 ];
 
@@ -550,6 +1401,22 @@ export default function AIStrategicIntelligenceVault() {
   const [editingContent, setEditingContent] = useState("");
   const [collapsedFolders, setCollapsedFolders] = useState<Record<string, boolean>>({});
 
+  // File creator modal state
+  const [isNewFileModalOpen, setIsNewFileModalOpen] = useState(false);
+  const [newFileFolder, setNewFileFolder] = useState("");
+  const [newFileName, setNewFileName] = useState("");
+  const [newFileTemplate, setNewFileTemplate] = useState<"none" | "strategy_blueprint" | "market_analysis" | "agent_task_list">("none");
+
+  // Automated Categorization suggestion state
+  const [categorizationSuggestion, setCategorizationSuggestion] = useState<{
+    filePath: string;
+    currentFolder: string;
+    suggestedFolder: string;
+    reasoning: string;
+    isAnalyzing: boolean;
+    show: boolean;
+  } | null>(null);
+
   // --- Social / Community Feed and Profile State ---
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [feedPosts, setFeedPosts] = useState<FeedPost[]>([]);
@@ -584,6 +1451,38 @@ export default function AIStrategicIntelligenceVault() {
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
   const [editingPatternId, setEditingPatternId] = useState<string | null>(null);
   const [patternEditForm, setPatternEditForm] = useState<{title: string; observation: string; opportunity: string}>({title: "", observation: "", opportunity: ""});
+  const [isAutoArrangeEnabled, setIsAutoArrangeEnabled] = useState(false);
+  const [visiblePatterns, setVisiblePatterns] = useState<Record<string, boolean>>({
+    "Pattern 1": true,
+    "Pattern 2": true,
+    "Pattern 3": true,
+    "Pattern 4": true,
+    "Pattern 5": true,
+    "Pattern 6": true,
+    "Pattern 7": true
+  });
+
+  const trendData = useMemo(() => {
+    const offsets = [
+      { "pat_1": -25, "pat_2": -30, "pat_3": -15, "pat_4": -20, "pat_5": -10, "pat_6": -5, "pat_7": -15 },
+      { "pat_1": -20, "pat_2": -18, "pat_3": -10, "pat_4": -12, "pat_5": -15, "pat_6": -10, "pat_7": -8 },
+      { "pat_1": -12, "pat_2": -10, "pat_3": -12, "pat_4": -5, "pat_5": -5, "pat_6": -8, "pat_7": -12 },
+      { "pat_1": -5, "pat_2": -12, "pat_3": -5, "pat_4": -8, "pat_5": -10, "pat_6": -2, "pat_7": -5 },
+      { "pat_1": -2, "pat_2": -3, "pat_3": -2, "pat_4": -2, "pat_5": -3, "pat_6": -4, "pat_7": -2 },
+      { "pat_1": 0, "pat_2": 0, "pat_3": 0, "pat_4": 0, "pat_5": 0, "pat_6": 0, "pat_7": 0 }
+    ];
+
+    const periods = ["Jan", "Feb", "Mar", "Apr", "May", "Current"];
+
+    return periods.map((period, index) => {
+      const dataPoint: any = { name: period };
+      patterns.forEach((pat) => {
+        const offset = offsets[index][pat.id as keyof typeof offsets[0]] || 0;
+        dataPoint[`Pattern ${pat.number}`] = Math.max(10, Math.min(100, pat.strengthVal + offset));
+      });
+      return dataPoint;
+    });
+  }, [patterns]);
 
   // Future Impact Scenarios State
   const [generatingImpactKey, setGeneratingImpactKey] = useState<string | null>(null);
@@ -619,6 +1518,28 @@ export default function AIStrategicIntelligenceVault() {
   // Simulated live clock and terminal output logs
   const [utcTime, setUtcTime] = useState("");
   const [terminalLogs, setTerminalLogs] = useState<string[]>([]);
+
+  // Quick Capture Widget State
+  const [isQuickCaptureOpen, setIsQuickCaptureOpen] = useState(false);
+  const [quickCaptureText, setQuickCaptureText] = useState("");
+  const [quickCaptureTags, setQuickCaptureTags] = useState("");
+
+  const PREDEFINED_CAP_TAGS = ["signal", "trend", "action", "idea", "risk", "insight", "milestone", "question"];
+
+  const toggleQuickCaptureTag = (tag: string) => {
+    const currentTags = quickCaptureTags
+      .split(",")
+      .map((t) => t.trim().toLowerCase())
+      .filter(Boolean);
+    
+    if (currentTags.includes(tag.toLowerCase())) {
+      const updated = currentTags.filter((t) => t !== tag.toLowerCase());
+      setQuickCaptureTags(updated.join(", "));
+    } else {
+      const updated = [...currentTags, tag.toLowerCase()];
+      setQuickCaptureTags(updated.join(", "));
+    }
+  };
 
   // Google Picker API State
   const [googleAccessToken, setGoogleAccessToken] = useState<string | null>(null);
@@ -668,6 +1589,9 @@ export default function AIStrategicIntelligenceVault() {
       const storedFiles = localStorage.getItem("strategic_vault_files");
       const storedConnections = localStorage.getItem("strategic_vault_connections");
       const storedPatterns = localStorage.getItem("strategic_vault_patterns");
+      const storedSignals = localStorage.getItem("strategic_vault_signals");
+      const storedAutoArrange = localStorage.getItem("strategic_vault_auto_arrange");
+
       if (storedPatterns) {
         try {
           setPatterns(JSON.parse(storedPatterns));
@@ -675,16 +1599,48 @@ export default function AIStrategicIntelligenceVault() {
           console.error("Failed to parse stored patterns", err);
         }
       }
+      if (storedSignals) {
+        try {
+          setSignals(JSON.parse(storedSignals));
+        } catch (err) {
+          console.error("Failed to parse stored signals", err);
+        }
+      }
+      if (storedAutoArrange) {
+        setIsAutoArrangeEnabled(storedAutoArrange === "true");
+      }
       if (storedFiles) {
         try {
           const parsed = JSON.parse(storedFiles);
-          const migratedFiles = parsed.map((f: any) => ({
+          let migratedFiles = parsed.map((f: any) => ({
             ...f,
             tags: f.tags || []
           }));
-          setVaultFiles(migratedFiles);
+
+          // Merge logic: find files in INITIAL_FILES that are not in migratedFiles by path
+          const existingPaths = new Set(migratedFiles.map((f: any) => f.path));
+          const missingFiles = INITIAL_FILES.filter((f: VaultFile) => !existingPaths.has(f.path));
+
+          // Also, if PROJECTS.md exists but contains the old static header, update it to use the new content
+          migratedFiles = migratedFiles.map((f: any) => {
+            if (f.path === "01_Projects/PROJECTS.md" && f.content.includes("# Active & Future Strategic Projects")) {
+              const newProjects = INITIAL_FILES.find((inf: VaultFile) => inf.path === "01_Projects/PROJECTS.md");
+              if (newProjects) {
+                return { ...f, content: newProjects.content };
+              }
+            }
+            return f;
+          });
+
+          let updatedFiles = migratedFiles;
+          if (missingFiles.length > 0) {
+            updatedFiles = [...migratedFiles, ...missingFiles];
+          }
+          
+          localStorage.setItem("strategic_vault_files", JSON.stringify(updatedFiles));
+          setVaultFiles(updatedFiles);
           // Set initial active file
-          const brainDump = migratedFiles.find((f: VaultFile) => f.name === "BRAIN_DUMP.md") || migratedFiles[0];
+          const brainDump = updatedFiles.find((f: VaultFile) => f.name === "BRAIN_DUMP.md") || updatedFiles[0];
           if (brainDump) {
             setActiveFile(brainDump);
             setEditingContent(brainDump.content);
@@ -811,6 +1767,24 @@ export default function AIStrategicIntelligenceVault() {
     };
   }, []);
 
+  // Listen for global Alt+Q hotkey to toggle quick capture, or Escape to close it
+  useEffect(() => {
+    const handleGlobalKeyDown = (e: KeyboardEvent) => {
+      // Toggle Quick Capture on Alt+Q
+      if ((e.altKey && e.key.toLowerCase() === "q") || (e.altKey && e.key === "œ")) {
+        // Prevent default only if we are not inside an input/textarea (or let's do it globally since Alt+Q is highly specialized)
+        e.preventDefault();
+        setIsQuickCaptureOpen((prev) => !prev);
+      }
+      // Close on Escape
+      if (e.key === "Escape") {
+        setIsQuickCaptureOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleGlobalKeyDown);
+    return () => window.removeEventListener("keydown", handleGlobalKeyDown);
+  }, []);
+
   // Update SVG connections dimensions on change or resize
   useEffect(() => {
     const handleResize = () => {
@@ -838,6 +1812,140 @@ export default function AIStrategicIntelligenceVault() {
     ]);
   };
 
+  // Rearranges patterns and signals to minimize overlapping line crossings (Barycenter crossing-minimization heuristic)
+  const autoArrangeLayout = () => {
+    let optimizedPatterns = [...patterns];
+    let optimizedSignals = [...signals];
+
+    const iterations = 8;
+    for (let iter = 0; iter < iterations; iter++) {
+      // Step 1: Optimize signals relative to patterns
+      optimizedSignals = [...optimizedSignals].sort((a, b) => {
+        const aNeighbors = connections.filter(c => c.signalId === a.id);
+        const bNeighbors = connections.filter(c => c.signalId === b.id);
+
+        const getBarycenter = (neighbors: typeof connections) => {
+          if (neighbors.length === 0) return 3.5; // middle of 7 elements
+          const sum = neighbors.reduce((acc, curr) => {
+            const idx = optimizedPatterns.findIndex(p => p.id === curr.patternId);
+            return acc + (idx !== -1 ? idx : 3.5);
+          }, 0);
+          return sum / neighbors.length;
+        };
+
+        const aVal = getBarycenter(aNeighbors);
+        const bVal = getBarycenter(bNeighbors);
+
+        return aVal - bVal;
+      });
+
+      // Step 2: Optimize patterns relative to signals
+      optimizedPatterns = [...optimizedPatterns].sort((a, b) => {
+        const aNeighbors = connections.filter(c => c.patternId === a.id);
+        const bNeighbors = connections.filter(c => c.patternId === b.id);
+
+        const getBarycenter = (neighbors: typeof connections) => {
+          if (neighbors.length === 0) return 4; // middle of 8 elements
+          const sum = neighbors.reduce((acc, curr) => {
+            const idx = optimizedSignals.findIndex(s => s.id === curr.signalId);
+            return acc + (idx !== -1 ? idx : 4);
+          }, 0);
+          return sum / neighbors.length;
+        };
+
+        const aVal = getBarycenter(aNeighbors);
+        const bVal = getBarycenter(bNeighbors);
+
+        return aVal - bVal;
+      });
+    }
+
+    // If a node is selected, prioritize aligning its connected neighbors opposite to it
+    if (selectedPatternId) {
+      const selectedIdx = optimizedPatterns.findIndex(p => p.id === selectedPatternId);
+      if (selectedIdx !== -1) {
+        const connectedSignalIds = connections
+          .filter(c => c.patternId === selectedPatternId)
+          .map(c => c.signalId);
+        
+        const connected = optimizedSignals.filter(s => connectedSignalIds.includes(s.id));
+
+        const targetCenter = (selectedIdx / (optimizedPatterns.length - 1)) * (optimizedSignals.length - 1);
+        const insertAt = Math.max(0, Math.min(optimizedSignals.length - connected.length, Math.round(targetCenter - connected.length / 2)));
+        
+        const resultSignals: Signal[] = [];
+        let connInserted = false;
+        for (let i = 0; i < optimizedSignals.length; i++) {
+          if (i === insertAt && !connInserted) {
+            resultSignals.push(...connected);
+            connInserted = true;
+          }
+          const item = optimizedSignals[i];
+          if (!connectedSignalIds.includes(item.id)) {
+            resultSignals.push(item);
+          }
+        }
+        if (!connInserted) {
+          resultSignals.push(...connected);
+        }
+        optimizedSignals = resultSignals;
+      }
+    } else if (selectedSignalId) {
+      const selectedIdx = optimizedSignals.findIndex(s => s.id === selectedSignalId);
+      if (selectedIdx !== -1) {
+        const connectedPatternIds = connections
+          .filter(c => c.signalId === selectedSignalId)
+          .map(c => c.patternId);
+        
+        const connected = optimizedPatterns.filter(p => connectedPatternIds.includes(p.id));
+
+        const targetCenter = (selectedIdx / (optimizedSignals.length - 1)) * (optimizedPatterns.length - 1);
+        const insertAt = Math.max(0, Math.min(optimizedPatterns.length - connected.length, Math.round(targetCenter - connected.length / 2)));
+
+        const resultPatterns: Pattern[] = [];
+        let connInserted = false;
+        for (let i = 0; i < optimizedPatterns.length; i++) {
+          if (i === insertAt && !connInserted) {
+            resultPatterns.push(...connected);
+            connInserted = true;
+          }
+          const item = optimizedPatterns[i];
+          if (!connectedPatternIds.includes(item.id)) {
+            resultPatterns.push(item);
+          }
+        }
+        if (!connInserted) {
+          resultPatterns.push(...connected);
+        }
+        optimizedPatterns = resultPatterns;
+      }
+    }
+
+    setPatterns(optimizedPatterns);
+    setSignals(optimizedSignals);
+    
+    localStorage.setItem("strategic_vault_patterns", JSON.stringify(optimizedPatterns));
+    localStorage.setItem("strategic_vault_signals", JSON.stringify(optimizedSignals));
+    addTerminalLog("Bipartite layout optimized to minimize line crossings.");
+  };
+
+  const resetLayout = () => {
+    const sortedPatterns = [...patterns].sort((a, b) => a.number - b.number);
+    const sortedSignals = [...signals].sort((a, b) => a.number - b.number);
+    setPatterns(sortedPatterns);
+    setSignals(sortedSignals);
+    localStorage.setItem("strategic_vault_patterns", JSON.stringify(sortedPatterns));
+    localStorage.setItem("strategic_vault_signals", JSON.stringify(sortedSignals));
+    addTerminalLog("Restored default sequential network layout.");
+  };
+
+  // Trigger automatic re-arrangement when selectedPatternId or selectedSignalId changes
+  useEffect(() => {
+    if (isAutoArrangeEnabled) {
+      autoArrangeLayout();
+    }
+  }, [selectedPatternId, selectedSignalId, isAutoArrangeEnabled]);
+
   // Switch Active File
   const handleSelectFile = (file: VaultFile) => {
     // Save current file text first if was editing
@@ -855,21 +1963,103 @@ export default function AIStrategicIntelligenceVault() {
 
   // Add a new file inside a folder
   const handleCreateFile = (folder: string) => {
-    const name = prompt("Enter a name for the new file (include .md or .json, e.g. competitor_news.md):");
-    if (!name) return;
-    const cleanName = name.endsWith(".md") || name.endsWith(".json") ? name : `${name}.md`;
-    const newPath = `${folder}/${cleanName}`;
+    setNewFileFolder(folder);
+    setNewFileName("");
+    setNewFileTemplate("none");
+    setIsNewFileModalOpen(true);
+  };
+
+  // Confirm creation of file from modal with selected template
+  const handleConfirmCreateFile = () => {
+    if (!newFileName.trim()) {
+      alert("Please enter a file name.");
+      return;
+    }
+    const cleanName = newFileName.endsWith(".md") || newFileName.endsWith(".json") ? newFileName : `${newFileName}.md`;
+    const newPath = `${newFileFolder}/${cleanName}`;
 
     if (vaultFiles.some((f) => f.path === newPath)) {
       alert("A file with this name already exists in that folder.");
       return;
     }
 
+    let initialContent = `# ${cleanName.replace(".md", "").toUpperCase()}\n\nCreated: ${new Date().toLocaleDateString()}\n\nEnter strategic analysis here...`;
+
+    if (newFileTemplate === "strategy_blueprint") {
+      initialContent = `# Strategy Blueprint: ${cleanName.replace(".md", "").toUpperCase()}
+
+## Executive Summary
+- **Vision**: Define the long-term target state and core ambition.
+- **Strategic Objectives**: High-level pillars of success.
+- **Time Horizon**: Estimated timeframe (e.g., Q3 2026 - Q4 2027).
+
+## Core Focus Areas
+1. **Focus Area 1**: Detailed definition, scope, and ownership.
+2. **Focus Area 2**: Detailed definition, scope, and ownership.
+
+## Execution Plan
+- **Phase 1**: Research, alignment, and scoping.
+- **Phase 2**: Prototyping, pilot validation, and feedback collection.
+- **Phase 3**: Full scale rollout, system training, and transition.
+
+## Key Metrics & KPIs
+- [ ] **Metric A**: Baseline vs. Target (e.g., Latency < 150ms)
+- [ ] **Metric B**: Adoption threshold target (e.g., 85% penetration)
+`;
+    } else if (newFileTemplate === "market_analysis") {
+      initialContent = `# Market Analysis: ${cleanName.replace(".md", "").toUpperCase()}
+
+## Market Overview
+- **Total Addressable Market (TAM)**: Estimates of aggregate demand.
+- **Serviceable Addressable Market (SAM)**: The target share we can capture.
+- **Growth Rate (CAGR)**: Projected compound annual growth rate.
+
+## Competitor Landscape
+- **Direct Competitors**: Core solutions offering similar capabilities.
+- **Indirect Competitors**: Alternative workflows or partial solutions.
+- **Our Edge**: Structural defense vectors, unique datasets, or lower cost.
+
+## SWOT Analysis
+### Strengths
+- Core unique competencies and technical differentiators.
+### Weaknesses
+- Internal friction, scaling limits, or resource bottlenecks.
+### Opportunities
+- Macro shifts, regulatory changes, or structural technology advancements.
+### Threats
+- Rapid commoditization, aggressive pricing, or platform lock-in.
+
+## Emerging Trends & Signals
+- **Trend 1**: Signal details and predicted timelines.
+- **Trend 2**: Signal details and predicted timelines.
+`;
+    } else if (newFileTemplate === "agent_task_list") {
+      initialContent = `# Agent Task List: ${cleanName.replace(".md", "").toUpperCase()}
+
+## Objective & Scope
+- **Core Purpose**: High-level mission parameters of the agent system.
+- **Target Systems**: Associated integrations, databases, and environments.
+
+## Prioritized Task Queue
+- [ ] **Task 1**: [Description of critical action] | *Priority: High*
+- [ ] **Task 2**: [Description of standard validation] | *Priority: Medium*
+- [ ] **Task 3**: [Description of minor optimization] | *Priority: Low*
+
+## Active Workflow State
+- **Input parameters**: Context keys, system prompts, or files.
+- **Output artifacts**: Generated logs, report summaries, or databases.
+- **Status**: Idle / Running / Blocked / Completed
+
+## Audit Trail & Logs
+- [${new Date().toLocaleDateString()}] Initialized task loop and registered parameters.
+`;
+    }
+
     const newFile: VaultFile = {
       path: newPath,
       name: cleanName,
-      folder: folder,
-      content: `# ${cleanName.replace(".md", "").toUpperCase()}\n\nCreated: ${new Date().toLocaleDateString()}\n\nEnter strategic analysis here...`,
+      folder: newFileFolder,
+      content: initialContent,
       updatedAt: new Date().toISOString(),
       tags: []
     };
@@ -878,8 +2068,172 @@ export default function AIStrategicIntelligenceVault() {
     setVaultFiles(updated);
     saveVaultToLocalStorage(updated);
     setActiveFile(newFile);
-    setEditingContent(newFile.content);
-    addTerminalLog(`Created file: ${newPath}`);
+    setEditingContent(initialContent);
+    addTerminalLog(`Created file: ${newPath} from template: ${newFileTemplate}`);
+    setIsNewFileModalOpen(false);
+
+    // Trigger AI automated categorization analysis
+    handleAnalyzeFileCategorization(newFile);
+  };
+
+  // Global Quick Capture Entry Submission for BRAIN_DUMP.md
+  const handleQuickCaptureSubmit = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (!quickCaptureText.trim()) return;
+
+    const targetPath = "00_Inbox/BRAIN_DUMP.md";
+    const brainDumpFile = vaultFiles.find((f) => f.path === targetPath) || vaultFiles.find((f) => f.name === "BRAIN_DUMP.md");
+
+    const now = new Date();
+    const timestamp = now.toLocaleDateString() + " " + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const tagsString = quickCaptureTags.trim() 
+      ? quickCaptureTags.split(",").map(t => `#${t.trim()}`).join(" ") 
+      : "";
+    
+    // Construct new text entry formatted cleanly
+    const newEntry = `\n- **[Captured ${timestamp}]:** ${quickCaptureText.trim()} ${tagsString}`;
+
+    let updatedFiles = [...vaultFiles];
+    if (brainDumpFile) {
+      updatedFiles = vaultFiles.map((f) =>
+        f.path === brainDumpFile.path 
+          ? { ...f, content: f.content + newEntry, updatedAt: new Date().toISOString() } 
+          : f
+      );
+      // If the brain dump file is currently the active file in the editor, we also update editingContent & activeFile
+      if (activeFile && activeFile.path === brainDumpFile.path) {
+        setEditingContent(prev => prev + newEntry);
+        setActiveFile({ ...brainDumpFile, content: brainDumpFile.content + newEntry, updatedAt: new Date().toISOString() });
+      }
+    } else {
+      // Create it if for some reason it got deleted or doesn't exist
+      const newFile: VaultFile = {
+        path: targetPath,
+        name: "BRAIN_DUMP.md",
+        folder: "00_Inbox",
+        updatedAt: new Date().toISOString(),
+        tags: ["inbox", "ideas"],
+        content: `# Brain Dump & Raw Inputs\n\nCapture thoughts, market signals, or voice transcriptions here first.\n${newEntry}`
+      };
+      updatedFiles = [...vaultFiles, newFile];
+      if (activeFile && activeFile.path === targetPath) {
+        setEditingContent(newFile.content);
+        setActiveFile(newFile);
+      }
+    }
+
+    setVaultFiles(updatedFiles);
+    saveVaultToLocalStorage(updatedFiles);
+
+    // Terminal log integration
+    addTerminalLog(`Quick-captured thought to BRAIN_DUMP.md: "${quickCaptureText.trim().substring(0, 35)}..."`);
+    
+    // Reset inputs & close
+    setQuickCaptureText("");
+    setQuickCaptureTags("");
+    setIsQuickCaptureOpen(false);
+  };
+
+  // Trigger Gemini analysis to check if file needs to be categorized into a different folder
+  const handleAnalyzeFileCategorization = async (file: VaultFile) => {
+    setCategorizationSuggestion({
+      filePath: file.path,
+      currentFolder: file.folder,
+      suggestedFolder: "",
+      reasoning: "",
+      isAnalyzing: true,
+      show: true,
+    });
+    addTerminalLog(`Initiating automated AI categorization for: ${file.name}...`);
+
+    try {
+      const response = await fetch("/api/gemini/route", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "categorize",
+          payload: {
+            filename: file.name,
+            content: file.content,
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Categorization analysis failed: ${response.statusText}`);
+      }
+
+      const result = await response.json();
+      const { suggestedFolder, reasoning } = result;
+
+      addTerminalLog(`AI Suggestion for ${file.name}: Most relevant folder is "${suggestedFolder}".`);
+      
+      if (suggestedFolder && suggestedFolder !== file.folder) {
+        setCategorizationSuggestion({
+          filePath: file.path,
+          currentFolder: file.folder,
+          suggestedFolder,
+          reasoning,
+          isAnalyzing: false,
+          show: true,
+        });
+      } else {
+        // Correctly categorized or no better folder recommended
+        setCategorizationSuggestion(null);
+        addTerminalLog(`AI verified that ${file.name} is correctly categorized in "${file.folder}".`);
+      }
+    } catch (err: any) {
+      console.error(err);
+      addTerminalLog(`AI Categorization Error: ${err.message || "Endpoint failed"}`);
+      setCategorizationSuggestion(null);
+    }
+  };
+
+  // Move file helper to execute the move operation
+  const handleMoveFileToFolder = (sourcePath: string, targetFolder: string) => {
+    const fileToMove = vaultFiles.find((f) => f.path === sourcePath);
+    if (!fileToMove) return;
+
+    let finalName = fileToMove.name;
+    let newPath = `${targetFolder}/${finalName}`;
+
+    // Handle name collision
+    let counter = 1;
+    while (vaultFiles.some((f) => f.path === newPath && f.path !== sourcePath)) {
+      const parts = fileToMove.name.split(".");
+      const ext = parts.pop();
+      const base = parts.join(".");
+      finalName = `${base}_${counter}.${ext}`;
+      newPath = `${targetFolder}/${finalName}`;
+      counter++;
+    }
+
+    const updated = vaultFiles.map((f) => {
+      if (f.path === sourcePath) {
+        return {
+          ...f,
+          path: newPath,
+          name: finalName,
+          folder: targetFolder,
+          updatedAt: new Date().toISOString(),
+        };
+      }
+      return f;
+    });
+
+    setVaultFiles(updated);
+    saveVaultToLocalStorage(updated);
+
+    if (activeFile && activeFile.path === sourcePath) {
+      const updatedActive = updated.find((f) => f.path === newPath);
+      if (updatedActive) {
+        setActiveFile(updatedActive);
+        setEditingContent(updatedActive.content);
+      }
+    }
+
+    addTerminalLog(`AI Categorized: Moved "${sourcePath}" to "${newPath}"`);
+    setCategorizationSuggestion(null);
   };
 
   // Delete active file
@@ -2351,6 +3705,67 @@ export default function AIStrategicIntelligenceVault() {
                     </div>
                   </div>
 
+                  {/* AI Automated Categorization Suggestion Banner */}
+                  {categorizationSuggestion && categorizationSuggestion.show && (
+                    <div className="mx-5 mt-4 bg-zinc-950/80 border border-violet-900/40 rounded p-4 shadow-xl shadow-zinc-950/40 animate-fade-in relative overflow-hidden">
+                      {/* Ambient background glow */}
+                      <div className="absolute top-0 right-0 w-24 h-24 bg-violet-500/5 rounded-full blur-2xl pointer-events-none" />
+                      
+                      <div className="flex items-start gap-3">
+                        <div className="p-1.5 bg-violet-950 border border-violet-800 text-violet-400 rounded shrink-0">
+                          <Cpu className="h-4 w-4 animate-pulse" />
+                        </div>
+                        
+                        <div className="space-y-2 flex-1 min-w-0">
+                          <div className="flex items-center justify-between">
+                            <h4 className="text-[11px] font-mono font-extrabold uppercase tracking-widest text-violet-300">
+                              AI Categorization Optimizer
+                            </h4>
+                            {categorizationSuggestion.isAnalyzing && (
+                              <span className="flex items-center gap-1 text-[10px] font-mono text-cyan-400">
+                                <span className="h-1.5 w-1.5 rounded bg-cyan-400 animate-ping" />
+                                Analyzing...
+                              </span>
+                            )}
+                          </div>
+
+                          {categorizationSuggestion.isAnalyzing ? (
+                            <p className="text-xs text-zinc-400 leading-relaxed">
+                              Gemini is evaluating the metadata and initial content of <strong className="text-zinc-200 font-mono">{activeFile?.name}</strong> to verify the most relevant folder slot...
+                            </p>
+                          ) : (
+                            <div className="space-y-2">
+                              <p className="text-xs text-zinc-300 leading-relaxed">
+                                Based on content analysis, Gemini suggests relocating <strong className="text-zinc-100 font-mono">{activeFile?.name}</strong> from <span className="bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 font-mono text-[10px] text-zinc-400">{categorizationSuggestion.currentFolder}</span> to <span className="bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 font-mono text-[10px] text-cyan-400 font-bold">{categorizationSuggestion.suggestedFolder}</span>.
+                              </p>
+                              {categorizationSuggestion.reasoning && (
+                                <p className="text-[11px] text-zinc-400 bg-zinc-900/40 border border-zinc-800/60 rounded p-2.5 leading-relaxed italic">
+                                  &ldquo;{categorizationSuggestion.reasoning}&rdquo;
+                                </p>
+                              )}
+                              
+                              <div className="flex items-center gap-2 pt-1">
+                                <button
+                                  onClick={() => handleMoveFileToFolder(categorizationSuggestion.filePath, categorizationSuggestion.suggestedFolder)}
+                                  className="px-3 py-1.5 bg-gradient-to-r from-cyan-600 to-violet-600 hover:from-cyan-500 hover:to-violet-500 text-white font-mono text-xs font-semibold rounded flex items-center gap-1 shadow-md shadow-cyan-950/20 transition"
+                                >
+                                  <ArrowRight className="h-3 w-3" />
+                                  <span>Move to {categorizationSuggestion.suggestedFolder}</span>
+                                </button>
+                                <button
+                                  onClick={() => setCategorizationSuggestion(null)}
+                                  className="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 hover:text-zinc-200 font-mono text-xs transition"
+                                >
+                                  Keep in {categorizationSuggestion.currentFolder}
+                                </button>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
                   {/* Tags Management Sub-Bar */}
                   <div className="px-5 py-2 border-b border-zinc-900 bg-zinc-950/20 flex flex-wrap items-center gap-1.5">
                     <span className="text-[10px] font-mono text-zinc-500 mr-1.5 uppercase flex items-center gap-1 font-semibold shrink-0">
@@ -2641,6 +4056,53 @@ export default function AIStrategicIntelligenceVault() {
                 </div>
               </div>
 
+              {/* Layout Optimization Console */}
+              <div id="layout-optimizer-console" className="bg-zinc-950 p-3 rounded-lg border border-zinc-900 shadow flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs font-mono">
+                <div className="flex items-center gap-2">
+                  <span className="text-zinc-400 font-bold uppercase tracking-wider text-[10px] bg-zinc-900 px-2 py-0.5 rounded border border-zinc-800">Layout Optimizer</span>
+                  <span className="text-zinc-500 text-[9px] hidden lg:inline">Barycenter crossing-minimization heuristic</span>
+                </div>
+                <div className="flex flex-wrap items-center gap-3">
+                  {/* Toggle Auto-Arrange */}
+                  <label className="flex items-center gap-2 cursor-pointer bg-zinc-900/50 hover:bg-zinc-900 border border-zinc-800/80 px-2.5 py-1 rounded text-[9px] text-zinc-400 hover:text-zinc-200 transition select-none">
+                    <input
+                      type="checkbox"
+                      checked={isAutoArrangeEnabled}
+                      onChange={(e) => {
+                        const val = e.target.checked;
+                        setIsAutoArrangeEnabled(val);
+                        localStorage.setItem("strategic_vault_auto_arrange", String(val));
+                        if (val) {
+                          autoArrangeLayout();
+                        }
+                      }}
+                      className="accent-violet-500 rounded border-zinc-800 bg-zinc-950 cursor-pointer h-3.5 w-3.5"
+                    />
+                    <span>Auto-Arrange on Node Toggle</span>
+                  </label>
+
+                  {/* Manual Run Button */}
+                  <button
+                    onClick={autoArrangeLayout}
+                    className="flex items-center gap-1 px-3 py-1 bg-violet-600 hover:bg-violet-500 text-white font-medium rounded text-[9px] transition shadow shadow-violet-950/40 cursor-pointer"
+                    title="Minimize line crossings dynamically"
+                  >
+                    <Zap className="h-3 w-3 shrink-0 text-amber-300" />
+                    <span>Minimize Overlaps</span>
+                  </button>
+
+                  {/* Reset Layout Button */}
+                  <button
+                    onClick={resetLayout}
+                    className="flex items-center gap-1 px-3 py-1 bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 text-zinc-300 rounded text-[9px] transition cursor-pointer"
+                    title="Restore original numeric ordering"
+                  >
+                    <RotateCcw className="h-3 w-3 shrink-0 text-zinc-400" />
+                    <span>Reset Layout</span>
+                  </button>
+                </div>
+              </div>
+
               {/* Bipartite Graph Container Layout */}
               <div 
                 ref={containerRef}
@@ -2703,7 +4165,7 @@ export default function AIStrategicIntelligenceVault() {
                     
                     if (editingPatternId === pat.id) {
                       return (
-                        <div key={pat.id} className="p-3 rounded-lg border bg-zinc-950 border-violet-700/60 transition duration-200" style={{ height: "auto", minHeight: "70px", zIndex: 50 }}>
+                        <motion.div layout key={pat.id} className="p-3 rounded-lg border bg-zinc-950 border-violet-700/60 transition duration-200" style={{ height: "auto", minHeight: "70px", zIndex: 50 }}>
                           <div className="flex flex-col gap-2">
                             <input 
                               value={patternEditForm.title}
@@ -2749,12 +4211,13 @@ export default function AIStrategicIntelligenceVault() {
                               </button>
                             </div>
                           </div>
-                        </div>
+                        </motion.div>
                       );
                     }
 
                     return (
-                      <div
+                      <motion.div
+                        layout
                         key={pat.id}
                         onClick={() => {
                           setSelectedPatternId(isSelected ? null : pat.id);
@@ -2798,7 +4261,7 @@ export default function AIStrategicIntelligenceVault() {
                         <p className="text-[10px] text-zinc-400 mt-1 lines-clamp-1 truncate font-mono">
                           {pat.observation}
                         </p>
-                      </div>
+                      </motion.div>
                     );
                   })}
                 </div>
@@ -2813,7 +4276,8 @@ export default function AIStrategicIntelligenceVault() {
                     const isSelected = selectedSignalId === sig.id;
                     const isHighlighted = hoveredNodeId === sig.id || (selectedPatternId && connections.some(c => c.patternId === selectedPatternId && c.signalId === sig.id));
                     return (
-                      <div
+                      <motion.div
+                        layout
                         key={sig.id}
                         onClick={() => {
                           setSelectedSignalId(isSelected ? null : sig.id);
@@ -2850,7 +4314,7 @@ export default function AIStrategicIntelligenceVault() {
                         <p className="text-[10px] text-zinc-400 mt-1 lines-clamp-1 truncate font-mono">
                           {sig.description}
                         </p>
-                      </div>
+                      </motion.div>
                     );
                   })}
                 </div>
@@ -4066,6 +5530,258 @@ export default function AIStrategicIntelligenceVault() {
           </div>
         )}
       </div>
+
+      {/* File Creator Modal with Template Dropdown */}
+      {isNewFileModalOpen && (
+        <div id="file-creator-modal" className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-zinc-950/80 backdrop-blur-sm animate-fade-in">
+          <div className="relative w-full max-w-md bg-zinc-900 border border-zinc-800 rounded-lg shadow-2xl p-6 space-y-4">
+            
+            {/* Modal Header */}
+            <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
+              <div className="flex items-center gap-2">
+                <Plus className="h-4 w-4 text-cyan-400" />
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-zinc-200">
+                  Create New File
+                </h3>
+              </div>
+              <button
+                onClick={() => setIsNewFileModalOpen(false)}
+                className="p-1 hover:bg-zinc-800 rounded text-zinc-400 hover:text-zinc-200 transition"
+              >
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="space-y-4">
+              {/* Folder Location (Read-only) */}
+              <div className="space-y-1">
+                <label className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider block">
+                  Folder Destination
+                </label>
+                <div className="flex items-center gap-2 px-3 py-2 bg-zinc-950 border border-zinc-850 rounded text-xs text-zinc-300 font-mono">
+                  <Folder className="h-3.5 w-3.5 text-zinc-500 shrink-0" />
+                  <span>{newFileFolder}</span>
+                </div>
+              </div>
+
+              {/* File Name Input */}
+              <div className="space-y-1">
+                <label className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider block">
+                  File Name
+                </label>
+                <input
+                  type="text"
+                  value={newFileName}
+                  onChange={(e) => setNewFileName(e.target.value)}
+                  placeholder="e.g. market_threats"
+                  className="w-full px-3 py-2 bg-zinc-950 border border-zinc-850 hover:border-zinc-800 focus:border-cyan-500/50 rounded text-xs text-zinc-200 placeholder-zinc-650 font-mono outline-none transition"
+                  autoFocus
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") handleConfirmCreateFile();
+                  }}
+                />
+                <span className="text-[9px] text-zinc-550 font-mono block pt-0.5">
+                  Extension .md is appended automatically if not specified.
+                </span>
+              </div>
+
+              {/* Template Selector Dropdown */}
+              <div className="space-y-1">
+                <label className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider block">
+                  Create from Template
+                </label>
+                <select
+                  value={newFileTemplate}
+                  onChange={(e) => setNewFileTemplate(e.target.value as any)}
+                  className="w-full px-3 py-2 bg-zinc-950 border border-zinc-850 hover:border-zinc-800 focus:border-cyan-500/50 rounded text-xs text-zinc-200 font-mono outline-none cursor-pointer transition"
+                >
+                  <option value="none">Blank Markdown File</option>
+                  <option value="strategy_blueprint">Strategy Blueprint</option>
+                  <option value="market_analysis">Market Analysis</option>
+                  <option value="agent_task_list">Agent Task List</option>
+                </select>
+                <span className="text-[9px] text-zinc-550 font-mono block pt-0.5">
+                  Populates the file with a structured blueprint skeleton.
+                </span>
+              </div>
+            </div>
+
+            {/* Modal Actions */}
+            <div className="flex items-center justify-end gap-3 pt-3 border-t border-zinc-800">
+              <button
+                onClick={() => setIsNewFileModalOpen(false)}
+                className="px-4 py-2 bg-zinc-950 hover:bg-zinc-900 border border-zinc-850 rounded text-xs text-zinc-400 font-mono transition"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleConfirmCreateFile}
+                className="px-4 py-2 bg-gradient-to-r from-cyan-600 to-violet-600 hover:from-cyan-500 hover:to-violet-500 text-white font-mono text-xs font-semibold rounded flex items-center gap-1.5 shadow-md shadow-cyan-950/30 transition"
+              >
+                <Plus className="h-3.5 w-3.5" />
+                <span>Create File</span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* Global Floating Quick Capture Button */}
+      <div className="fixed bottom-16 right-6 z-50 flex flex-col items-end gap-3">
+        {/* Tooltip on Hover */}
+        <div className="group relative">
+          <button
+            onClick={() => setIsQuickCaptureOpen((prev) => !prev)}
+            className={cn(
+              "p-3 rounded-full shadow-2xl transition-all duration-300 border focus:outline-none flex items-center justify-center cursor-pointer",
+              isQuickCaptureOpen 
+                ? "bg-rose-950/80 border-rose-850 text-rose-400 hover:bg-rose-900/80 scale-105" 
+                : "bg-violet-950/80 border-violet-800 text-violet-400 hover:bg-violet-900/80 hover:scale-105 shadow-violet-950/40"
+            )}
+            title="Quick Capture to Inbox (Alt + Q)"
+          >
+            <Zap className="h-5 w-5 animate-pulse" />
+          </button>
+          <span className="absolute right-14 top-1/2 -translate-y-1/2 bg-zinc-900 border border-zinc-800 text-zinc-300 text-[10px] font-mono px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl">
+            Quick Capture <span className="text-zinc-500">[Alt+Q]</span>
+          </span>
+        </div>
+      </div>
+
+      {/* Quick Capture Floating Card */}
+      <AnimatePresence>
+        {isQuickCaptureOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 15, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 15, scale: 0.95 }}
+            transition={{ duration: 0.15 }}
+            className="fixed bottom-32 right-6 z-50 w-[320px] sm:w-[380px] bg-zinc-950/95 border border-zinc-850 p-4 rounded-xl shadow-2xl backdrop-blur-md space-y-3"
+          >
+            <div className="flex items-center justify-between border-b border-zinc-900 pb-2.5">
+              <div className="flex items-center gap-2">
+                <Zap className="h-4 w-4 text-violet-400" />
+                <h4 className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-200">
+                  Quick-Capture Inbox
+                </h4>
+              </div>
+              <span className="text-[8px] font-mono bg-violet-950/50 border border-violet-900 text-violet-400 px-1.5 py-0.5 rounded">
+                00_Inbox/BRAIN_DUMP.md
+              </span>
+            </div>
+
+            <form onSubmit={handleQuickCaptureSubmit} className="space-y-3">
+              <div className="space-y-1">
+                <textarea
+                  value={quickCaptureText}
+                  onChange={(e) => setQuickCaptureText(e.target.value)}
+                  placeholder="Capture a raw concept, market signal, or task... Support [[WikiLinks]]"
+                  className="w-full h-24 px-3 py-2 bg-zinc-900/50 border border-zinc-850 hover:border-zinc-800 focus:border-violet-500/50 focus:ring-1 focus:ring-violet-500/30 rounded text-xs text-zinc-200 placeholder-zinc-650 font-mono outline-none resize-none transition"
+                  autoFocus
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+                      e.preventDefault();
+                      handleQuickCaptureSubmit();
+                    }
+                  }}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-zinc-500">
+                  <div className="flex items-center gap-1.5">
+                    <Tag className="h-3 w-3 text-zinc-400" />
+                    <label className="text-[9px] font-mono uppercase tracking-wider block">
+                      Quick Categorize (Select Tags)
+                    </label>
+                  </div>
+                  {quickCaptureTags.trim() && (
+                    <button
+                      type="button"
+                      onClick={() => setQuickCaptureTags("")}
+                      className="text-[8px] font-mono text-zinc-500 hover:text-rose-400 transition cursor-pointer"
+                    >
+                      Clear All
+                    </button>
+                  )}
+                </div>
+                
+                {/* Predefined Pills */}
+                <div className="flex flex-wrap gap-1.5 pb-1">
+                  {PREDEFINED_CAP_TAGS.map((tag) => {
+                    const isActive = quickCaptureTags
+                      .split(",")
+                      .map((t) => t.trim().toLowerCase())
+                      .includes(tag.toLowerCase());
+                      
+                    // Distinct ambient colors for each active tag
+                    const activeColorClass = {
+                      signal: "bg-amber-950/40 border-amber-500 text-amber-400 hover:bg-amber-900/40",
+                      trend: "bg-cyan-950/40 border-cyan-500 text-cyan-400 hover:bg-cyan-900/40",
+                      action: "bg-emerald-950/40 border-emerald-500 text-emerald-400 hover:bg-emerald-900/40",
+                      idea: "bg-violet-950/40 border-violet-500 text-violet-400 hover:bg-violet-900/40",
+                      risk: "bg-rose-950/40 border-rose-500 text-rose-400 hover:bg-rose-900/40",
+                      insight: "bg-blue-950/40 border-blue-500 text-blue-400 hover:bg-blue-900/40",
+                      milestone: "bg-purple-950/40 border-purple-500 text-purple-400 hover:bg-purple-900/40",
+                      question: "bg-pink-950/40 border-pink-500 text-pink-400 hover:bg-pink-900/40",
+                    }[tag] || "bg-zinc-800 border-zinc-600 text-zinc-200";
+
+                    return (
+                      <button
+                        key={tag}
+                        type="button"
+                        onClick={() => toggleQuickCaptureTag(tag)}
+                        className={cn(
+                          "px-2 py-0.5 rounded text-[10px] font-mono border cursor-pointer transition duration-200 select-none",
+                          isActive
+                            ? activeColorClass
+                            : "bg-zinc-900/30 border-zinc-850 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700"
+                        )}
+                      >
+                        {tag}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <input
+                  type="text"
+                  value={quickCaptureTags}
+                  onChange={(e) => setQuickCaptureTags(e.target.value)}
+                  placeholder="or type manual tags (comma separated)..."
+                  className="w-full px-3 py-1.5 bg-zinc-900/50 border border-zinc-850 hover:border-zinc-800 focus:border-violet-500/50 rounded text-xs text-zinc-200 placeholder-zinc-650 font-mono outline-none transition"
+                />
+              </div>
+
+              <div className="flex items-center justify-between pt-1">
+                <div className="text-[8px] font-mono text-zinc-600">
+                  Ctrl+Enter to save • Esc to close
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setIsQuickCaptureOpen(false)}
+                    className="px-2.5 py-1.5 bg-zinc-900 hover:bg-zinc-850 border border-zinc-850 rounded text-[10px] text-zinc-400 font-mono transition"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-3 py-1.5 bg-gradient-to-r from-violet-600 to-cyan-600 hover:from-violet-500 hover:to-cyan-500 text-white font-mono text-[10px] font-bold rounded shadow-md shadow-violet-950/30 transition flex items-center gap-1"
+                  >
+                    <span>Capture</span>
+                    <Plus className="h-3 w-3" />
+                  </button>
+                </div>
+              </div>
+            </form>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Footer layout */}
       <footer className="border-t border-zinc-900 bg-zinc-950 text-[10px] font-mono text-zinc-600 px-5 py-2.5 flex flex-col sm:flex-row items-center justify-between gap-2 shrink-0">

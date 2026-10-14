@@ -1,1 +1,7 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+
+@source "../app/**/*.tsx";
+@source "../app/**/*.ts";
+@source "../lib/**/*.ts";
+@source "../hooks/**/*.ts";
+

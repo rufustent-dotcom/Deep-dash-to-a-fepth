@@ -233,6 +233,61 @@ Refer explicitly to existing files and connections where appropriate. Answer the
       return NextResponse.json({ text: response.text });
     }
 
+    if (action === "categorize") {
+      const { filename, content } = payload;
+      
+      const prompt = `You are an expert AI Data Architect for the AI Strategic Intelligence Vault.
+We have a file in our knowledge vault:
+File Name: "${filename}"
+File Content:
+"${content}"
+
+We have exactly 9 system folders in our vault:
+- "00_Inbox" (raw and unrefined quick captures/ideas/links)
+- "01_Projects" (active files on plans and execution)
+- "02_Research" (long-term intelligence, trends, markets)
+- "03_AI" (prompts, models, experiments)
+- "04_Content" (creative ideas, drafts, scripts)
+- "05_Finance" (monetization, strategy)
+- "06_Learning" (courses, coding, skill acquisition)
+- "07_Archive" (inactive items)
+- "99_System" (dashboards, templates, configurations)
+
+Analyze the file name and content, and determine which of these 9 folders is the single most relevant folder for this file to be stored in.
+Provide a clear, brief 1-sentence reasoning/justification explaining why that folder is the best fit.
+
+Return your response in JSON format matching the schema:
+{
+  "suggestedFolder": "The suggested folder name, exactly as specified in the list (e.g., '03_AI')",
+  "reasoning": "A concise 1-sentence strategic justification for this categorization."
+}`;
+
+      const response = await getAiClient().models.generateContent({
+        model: "gemini-3.5-flash",
+        contents: prompt,
+        config: {
+          responseMimeType: "application/json",
+          responseSchema: {
+            type: Type.OBJECT,
+            properties: {
+              suggestedFolder: {
+                type: Type.STRING,
+                description: "The name of the recommended folder from the list.",
+              },
+              reasoning: {
+                type: Type.STRING,
+                description: "A single concise sentence reasoning for the suggested folder.",
+              },
+            },
+            required: ["suggestedFolder", "reasoning"],
+          },
+        },
+      });
+
+      const responseText = response.text || "{}";
+      return NextResponse.json(JSON.parse(responseText));
+    }
+
     return NextResponse.json({ error: "Unsupported Action" }, { status: 400 });
   } catch (error: any) {
     console.error("Gemini Route Error:", error);
