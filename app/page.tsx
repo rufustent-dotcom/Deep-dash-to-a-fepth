@@ -39,7 +39,10 @@ import {
   UserCheck,
   Flame,
   ImageIcon,
-  Tag
+  Tag,
+  CheckCircle2,
+  HardDrive,
+  Loader2
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -1632,9 +1635,20 @@ export default function AIStrategicIntelligenceVault() {
             return f;
           });
 
-          let updatedFiles = migratedFiles;
+          let updatedFiles = migratedFiles.map((f: any) => {
+            try {
+              const draftRaw = localStorage.getItem(`strategic_vault_draft_${f.path}`);
+              if (draftRaw) {
+                const draft = JSON.parse(draftRaw);
+                if (draft && draft.content && draft.updatedAt && (!f.updatedAt || new Date(draft.updatedAt) > new Date(f.updatedAt))) {
+                  return { ...f, content: draft.content, updatedAt: draft.updatedAt };
+                }
+              }
+            } catch {}
+            return f;
+          });
           if (missingFiles.length > 0) {
-            updatedFiles = [...migratedFiles, ...missingFiles];
+            updatedFiles = [...updatedFiles, ...missingFiles];
           }
           
           localStorage.setItem("strategic_vault_files", JSON.stringify(updatedFiles));
@@ -1812,6 +1826,132 @@ export default function AIStrategicIntelligenceVault() {
     ]);
   };
 
+  // --- Debounced Autosave for Active Markdown Editor (3 Seconds) ---
+  const [autosaveStatus, setAutosaveStatus] = useState<"saved" | "unsaved" | "saving">("saved");
+  const [lastSavedTime, setLastSavedTime] = useState<Date | null>(null);
+  const autosaveTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const latestEditingContentRef = useRef(editingContent);
+  const latestActiveFileRef = useRef(activeFile);
+  const latestVaultFilesRef = useRef(vaultFiles);
+
+  // Sync refs so beforeunload and timers always have the freshest state
+  useEffect(() => {
+    latestEditingContentRef.current = editingContent;
+  }, [editingContent]);
+
+  useEffect(() => {
+    latestActiveFileRef.current = activeFile;
+  }, [activeFile]);
+
+  useEffect(() => {
+    latestVaultFilesRef.current = vaultFiles;
+  }, [vaultFiles]);
+
+  // Execute the write to localStorage
+  const performAutosave = (contentToSave: string, targetPath: string) => {
+    setAutosaveStatus("saving");
+    try {
+      const now = new Date().toISOString();
+      const currentVault = latestVaultFilesRef.current;
+      const updatedVault = currentVault.map((f) =>
+        f.path === targetPath ? { ...f, content: contentToSave, updatedAt: now } : f
+      );
+
+      // 1. Commit updated vault list to localStorage
+      saveVaultToLocalStorage(updatedVault);
+      setVaultFiles(updatedVault);
+
+      // 2. Commit dedicated draft entry for durability
+      try {
+        localStorage.setItem(
+          `strategic_vault_draft_${targetPath}`,
+          JSON.stringify({ content: contentToSave, updatedAt: now })
+        );
+        localStorage.setItem(
+          "strategic_vault_last_autosave",
+          JSON.stringify({
+            path: targetPath,
+            timestamp: Date.now(),
+            iso: now,
+          })
+        );
+      } catch (storageErr) {
+        console.warn("Autosave draft cache error:", storageErr);
+      }
+
+      // 3. Keep active file state synced
+      setActiveFile((prev) =>
+        prev && prev.path === targetPath ? { ...prev, content: contentToSave, updatedAt: now } : prev
+      );
+
+      setAutosaveStatus("saved");
+      setLastSavedTime(new Date());
+      addTerminalLog(`Autosaved ${targetPath.split("/").pop()} to localStorage`);
+    } catch (err) {
+      console.error("Autosave failed:", err);
+      setAutosaveStatus("unsaved");
+    }
+  };
+
+  // Debounced autosave effect: triggers 3 seconds after the user stops typing in the active editor
+  useEffect(() => {
+    if (!activeFile) return;
+
+    // Check if current editor content matches active file content
+    if (editingContent === activeFile.content) {
+      if (autosaveStatus === "unsaved") {
+        setAutosaveStatus("saved");
+      }
+      return;
+    }
+
+    // New change detected: mark unsaved and set 3-second debounce timer
+    setAutosaveStatus("unsaved");
+
+    if (autosaveTimerRef.current) {
+      clearTimeout(autosaveTimerRef.current);
+    }
+
+    autosaveTimerRef.current = setTimeout(() => {
+      performAutosave(editingContent, activeFile.path);
+    }, 3000);
+
+    return () => {
+      if (autosaveTimerRef.current) {
+        clearTimeout(autosaveTimerRef.current);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editingContent, activeFile?.path, activeFile?.content]);
+
+  // Synchronous flush on page unload to guarantee 100% data durability
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      const curActive = latestActiveFileRef.current;
+      const curContent = latestEditingContentRef.current;
+      const curVault = latestVaultFilesRef.current;
+      if (curActive && curContent !== curActive.content) {
+        const now = new Date().toISOString();
+        const updatedVault = curVault.map((f) =>
+          f.path === curActive.path ? { ...f, content: curContent, updatedAt: now } : f
+        );
+        try {
+          localStorage.setItem("strategic_vault_files", JSON.stringify(updatedVault));
+          localStorage.setItem(
+            `strategic_vault_draft_${curActive.path}`,
+            JSON.stringify({ content: curContent, updatedAt: now })
+          );
+        } catch (e) {
+          console.error("Emergency beforeunload save error:", e);
+        }
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
   // Rearranges patterns and signals to minimize overlapping line crossings (Barycenter crossing-minimization heuristic)
   const autoArrangeLayout = () => {
     let optimizedPatterns = [...patterns];
@@ -1948,16 +2088,30 @@ export default function AIStrategicIntelligenceVault() {
 
   // Switch Active File
   const handleSelectFile = (file: VaultFile) => {
-    // Save current file text first if was editing
-    if (activeFile) {
+    // Clear pending autosave debounce timer if one is active
+    if (autosaveTimerRef.current) {
+      clearTimeout(autosaveTimerRef.current);
+      autosaveTimerRef.current = null;
+    }
+
+    // Save previous active file if it has pending changes
+    if (activeFile && editingContent !== activeFile.content) {
+      const now = new Date().toISOString();
       const updated = vaultFiles.map((f) =>
-        f.path === activeFile.path ? { ...f, content: editingContent, updatedAt: new Date().toISOString() } : f
+        f.path === activeFile.path ? { ...f, content: editingContent, updatedAt: now } : f
       );
       setVaultFiles(updated);
       saveVaultToLocalStorage(updated);
+      try {
+        localStorage.setItem(
+          `strategic_vault_draft_${activeFile.path}`,
+          JSON.stringify({ content: editingContent, updatedAt: now })
+        );
+      } catch {}
     }
     setActiveFile(file);
     setEditingContent(file.content);
+    setAutosaveStatus("saved");
     addTerminalLog(`Opened file: ${file.path}`);
   };
 
@@ -2258,11 +2412,33 @@ export default function AIStrategicIntelligenceVault() {
   // Save current editing content
   const handleSaveCurrentContent = () => {
     if (!activeFile) return;
+    if (autosaveTimerRef.current) {
+      clearTimeout(autosaveTimerRef.current);
+      autosaveTimerRef.current = null;
+    }
+    const now = new Date().toISOString();
     const updated = vaultFiles.map((f) =>
-      f.path === activeFile.path ? { ...f, content: editingContent, updatedAt: new Date().toISOString() } : f
+      f.path === activeFile.path ? { ...f, content: editingContent, updatedAt: now } : f
     );
     setVaultFiles(updated);
     saveVaultToLocalStorage(updated);
+    try {
+      localStorage.setItem(
+        `strategic_vault_draft_${activeFile.path}`,
+        JSON.stringify({ content: editingContent, updatedAt: now })
+      );
+      localStorage.setItem(
+        "strategic_vault_last_autosave",
+        JSON.stringify({
+          path: activeFile.path,
+          timestamp: Date.now(),
+          iso: now,
+        })
+      );
+    } catch {}
+    setActiveFile({ ...activeFile, content: editingContent, updatedAt: now });
+    setAutosaveStatus("saved");
+    setLastSavedTime(new Date());
     addTerminalLog(`Saved file: ${activeFile.path}`);
   };
 
@@ -3670,7 +3846,34 @@ export default function AIStrategicIntelligenceVault() {
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-1 shrink-0">
+                    <div className="flex items-center gap-2 shrink-0">
+                      {/* Autosave Status Indicator in Toolbar */}
+                      <div className="hidden sm:flex items-center gap-1.5 text-[11px] font-mono px-2.5 py-1 rounded bg-zinc-900/60 border border-zinc-800/80">
+                        {autosaveStatus === "saving" ? (
+                          <span className="flex items-center gap-1.5 text-amber-400">
+                            <Loader2 className="h-3 w-3 animate-spin" />
+                            <span>Autosaving...</span>
+                          </span>
+                        ) : autosaveStatus === "unsaved" ? (
+                          <span
+                            className="flex items-center gap-1.5 text-amber-300"
+                            title="Auto-saves to localStorage 3 seconds after typing stops"
+                          >
+                            <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse" />
+                            <span>Unsaved (3s debounce)</span>
+                          </span>
+                        ) : (
+                          <span className="flex items-center gap-1.5 text-emerald-400">
+                            <CheckCircle2 className="h-3 w-3 text-emerald-400" />
+                            <span>
+                              {lastSavedTime
+                                ? `Saved ${lastSavedTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" })}`
+                                : "Autosaved"}
+                            </span>
+                          </span>
+                        )}
+                      </div>
+
                       <div className="bg-zinc-900 rounded p-1 flex border border-zinc-800 text-[10px]">
                         <button
                           onClick={() => setEditorMode("edit")}
@@ -3843,9 +4046,41 @@ export default function AIStrategicIntelligenceVault() {
                           className="flex-1 w-full bg-zinc-950 text-xs font-mono text-zinc-300 p-4 rounded border border-zinc-800 focus:outline-none focus:border-violet-500 resize-none h-[calc(100vh-320px)] leading-relaxed"
                           placeholder="Write markdown here..."
                         />
-                        <div className="flex justify-between items-center text-[10px] font-mono text-zinc-500">
-                          <span>Auto-save activated to cache</span>
-                          <span>{editingContent.length} characters</span>
+                        <div className="flex flex-wrap items-center justify-between gap-2 px-1 py-1.5 text-[10px] font-mono text-zinc-500 border-t border-zinc-900/80">
+                          <div className="flex items-center gap-2.5">
+                            {autosaveStatus === "saving" ? (
+                              <span className="flex items-center gap-1.5 text-amber-400 font-medium">
+                                <Loader2 className="h-2.5 w-2.5 animate-spin" />
+                                <span>Autosaving to localStorage...</span>
+                              </span>
+                            ) : autosaveStatus === "unsaved" ? (
+                              <span className="flex items-center gap-1.5 text-amber-400/90 font-medium">
+                                <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-ping" />
+                                <span>Unsaved edits · Autosaving in 3s...</span>
+                              </span>
+                            ) : (
+                              <span className="flex items-center gap-1.5 text-emerald-400/90">
+                                <CheckCircle2 className="h-2.5 w-2.5 text-emerald-400" />
+                                <span>
+                                  {lastSavedTime
+                                    ? `Autosaved to localStorage at ${lastSavedTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" })}`
+                                    : "Autosave active · Debounced 3s to localStorage"}
+                                </span>
+                              </span>
+                            )}
+                            <span className="text-zinc-700">·</span>
+                            <span className="flex items-center gap-1 text-zinc-400">
+                              <HardDrive className="h-2.5 w-2.5 text-zinc-500" />
+                              <span>localStorage durability</span>
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2 text-zinc-500">
+                            <span>{editingContent.split(/\s+/).filter(Boolean).length} words</span>
+                            <span>·</span>
+                            <span>{editingContent.length} chars</span>
+                            <span>·</span>
+                            <span>{editingContent.split("\n").length} lines</span>
+                          </div>
                         </div>
                       </div>
                     ) : (

@@ -1,6 +1,7 @@
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
+  output: 'standalone',
   reactStrictMode: true,
   turbopack: {},
   typescript: {
@@ -13,7 +14,19 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'picsum.photos',
         port: '',
-        pathname: '/**', // This allows any path under the hostname
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'image.pollinations.ai',
+        port: '',
+        pathname: '/**',
       },
     ],
   },
