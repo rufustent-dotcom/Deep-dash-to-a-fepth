@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import Link from 'next/link';
 
 export default function AppErrorBoundary({
   error,
@@ -30,12 +29,12 @@ export default function AppErrorBoundary({
         >
           Recover Session
         </button>
-        <Link
+        <a
           href="/"
           className="px-4 py-2 bg-zinc-900 border border-zinc-800 hover:border-zinc-700 transition text-xs rounded hover:text-zinc-200"
         >
           Return to Hub
-        </Link>
+        </a>
       </div>
     </div>
   );

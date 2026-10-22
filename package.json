@@ -4,11 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "rm -rf dist .next && next dev",
-    "build": "NODE_ENV=production next build",
-    "start": "next start",
+    "dev": "rm -rf dist .next && next dev -p 3000 -H 0.0.0.0",
+    "build": "NODE_ENV=production next build && cp -r .next/static .next/standalone/.next/ && (cp -r public .next/standalone/ 2>/dev/null || true) && (rm -rf dist && cp -r .next dist || true)",
+    "start": "node server.ts",
     "lint": "eslint .",
-    "clean": "rm -rf dist .next && next clean"
+    "clean": "rm -rf dist .next"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
