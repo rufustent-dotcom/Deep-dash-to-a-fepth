@@ -42,8 +42,10 @@ import {
   Tag,
   CheckCircle2,
   HardDrive,
-  Loader2
+  Loader2,
+  Archive
 } from "lucide-react";
+import JSZip from "jszip";
 import { cn } from "@/lib/utils";
 import {
   fetchUserProfile,
@@ -1403,6 +1405,7 @@ export default function AIStrategicIntelligenceVault() {
   const [editorMode, setEditorMode] = useState<"edit" | "preview">("preview");
   const [editingContent, setEditingContent] = useState("");
   const [collapsedFolders, setCollapsedFolders] = useState<Record<string, boolean>>({});
+  const [isExportingZip, setIsExportingZip] = useState(false);
 
   // File creator modal state
   const [isNewFileModalOpen, setIsNewFileModalOpen] = useState(false);
@@ -2460,7 +2463,7 @@ export default function AIStrategicIntelligenceVault() {
     addTerminalLog("System reset complete. Loaded pure template schemas.");
   };
 
-  // Download entire vault as an simulated markdown package export
+  // Download entire vault as a JSON package export
   const handleExportVaultJSON = () => {
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(vaultFiles, null, 2));
     const downloadAnchor = document.createElement("a");
@@ -2470,6 +2473,97 @@ export default function AIStrategicIntelligenceVault() {
     downloadAnchor.click();
     downloadAnchor.remove();
     addTerminalLog("Strategic Vault files JSON package exported successfully.");
+  };
+
+  // Export current workspace as a compressed ZIP archive containing all Markdown files
+  const handleExportVaultZip = async () => {
+    if (isExportingZip) return;
+    setIsExportingZip(true);
+    addTerminalLog("Compressing Strategic Vault workspace into ZIP archive...");
+
+    try {
+      const zip = new JSZip();
+
+      // Ensure all standard vault folders exist in the archive
+      FOLDERS.forEach((folder) => {
+        zip.folder(folder);
+      });
+
+      // Add each markdown file in the vault to its respective folder
+      vaultFiles.forEach((file) => {
+        const isCurrentlyEditing = activeFile?.path === file.path && editorMode === "edit";
+        const rawContent = isCurrentlyEditing ? editingContent : file.content;
+        const normalizedName = file.name.endsWith(".md") ? file.name : `${file.name}.md`;
+        const filePath = file.folder ? `${file.folder}/${normalizedName}` : normalizedName;
+
+        // Add YAML frontmatter if not already present so tags & metadata travel with the Markdown file
+        let finalMarkdown = rawContent;
+        if (!rawContent.trimStart().startsWith("---")) {
+          const tagList = file.tags && file.tags.length > 0
+            ? `[${file.tags.map((t) => `"${t}"`).join(", ")}]`
+            : "[]";
+          const frontmatter = [
+            "---",
+            `title: "${file.name.replace(/\.md$/i, "")}"`,
+            `folder: "${file.folder}"`,
+            `updated: "${file.updatedAt}"`,
+            `tags: ${tagList}`,
+            "---",
+            "",
+          ].join("\n");
+          finalMarkdown = `${frontmatter}${rawContent}`;
+        }
+
+        zip.file(filePath, finalMarkdown);
+      });
+
+      // Add a workspace manifest markdown summary at the root of the ZIP
+      const exportDate = new Date().toISOString();
+      const manifestLines = [
+        "# AI Strategic Intelligence Vault — Workspace Export",
+        "",
+        `- **Exported At**: ${exportDate}`,
+        `- **Total Markdown Files**: ${vaultFiles.length}`,
+        `- **Active Patterns**: ${patterns.length}`,
+        `- **Tracked Signals**: ${signals.length}`,
+        "",
+        "## Vault Directory Contents",
+        "",
+        ...FOLDERS.map((folder) => {
+          const folderFiles = vaultFiles.filter((f) => f.folder === folder);
+          return [
+            `### ${folder} (${folderFiles.length} ${folderFiles.length === 1 ? "file" : "files"})`,
+            folderFiles.length > 0
+              ? folderFiles.map((f) => `- \`${f.path}\` — *Updated: ${f.updatedAt}*${f.tags && f.tags.length ? ` [Tags: ${f.tags.map((t) => `#${t}`).join(", ")}]` : ""}`).join("\n")
+              : "- *(Empty folder)*",
+            "",
+          ].join("\n");
+        }),
+      ];
+      zip.file("VAULT_MANIFEST.md", manifestLines.join("\n"));
+
+      const zipBlob = await zip.generateAsync({
+        type: "blob",
+        compression: "DEFLATE",
+        compressionOptions: { level: 9 },
+      });
+
+      const blobUrl = URL.createObjectURL(zipBlob);
+      const downloadAnchor = document.createElement("a");
+      downloadAnchor.href = blobUrl;
+      downloadAnchor.download = `ai_strategic_vault_${exportDate.substring(0, 10)}.zip`;
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);
+
+      addTerminalLog(`Workspace exported: ${vaultFiles.length} Markdown files compressed into ZIP archive.`);
+    } catch (err: any) {
+      console.error("Failed to export vault ZIP:", err);
+      addTerminalLog(`Error exporting ZIP archive: ${err?.message || "Compression failed"}`);
+    } finally {
+      setIsExportingZip(false);
+    }
   };
 
   // Handle launching Google Picker
@@ -3517,8 +3611,21 @@ export default function AIStrategicIntelligenceVault() {
               <RefreshCw className="h-3.5 w-3.5" />
             </button>
             <button
+              onClick={handleExportVaultZip}
+              disabled={isExportingZip}
+              className="px-2.5 h-8 flex items-center gap-1.5 rounded bg-violet-950/60 hover:bg-violet-900/70 border border-violet-500/40 text-violet-200 hover:text-white text-[10px] font-mono transition cursor-pointer disabled:opacity-50"
+              title="Export current workspace as a compressed ZIP file containing all Markdown files"
+            >
+              {isExportingZip ? (
+                <Loader2 className="h-3.5 w-3.5 animate-spin text-violet-300" />
+              ) : (
+                <Archive className="h-3.5 w-3.5 text-violet-400" />
+              )}
+              <span>{isExportingZip ? "Zipping..." : "Export ZIP"}</span>
+            </button>
+            <button
               onClick={handleExportVaultJSON}
-              className="px-2 w-8 h-8 flex items-center justify-center rounded bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 hover:text-zinc-200 transition"
+              className="px-2 w-8 h-8 flex items-center justify-center rounded bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 hover:text-zinc-200 transition cursor-pointer"
               title="Download entire Vault folder in JSON package"
             >
               <Download className="h-3.5 w-3.5" />
@@ -3609,7 +3716,7 @@ export default function AIStrategicIntelligenceVault() {
                   />
                 </div>
 
-                <div className="pt-1">
+                <div className="pt-1 space-y-1.5">
                   <button
                     onClick={handleOpenGooglePicker}
                     className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-gradient-to-r from-violet-950 to-indigo-950/60 hover:from-violet-900 hover:to-indigo-900 border border-violet-500/30 hover:border-violet-500/50 text-violet-200 hover:text-white text-xs font-mono font-medium rounded transition duration-150 cursor-pointer shadow-md shadow-violet-950/20"
@@ -3617,6 +3724,19 @@ export default function AIStrategicIntelligenceVault() {
                   >
                     <Upload className="h-3.5 w-3.5 text-violet-400" />
                     <span>Import Google Drive...</span>
+                  </button>
+                  <button
+                    onClick={handleExportVaultZip}
+                    disabled={isExportingZip}
+                    className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 hover:border-violet-500/40 text-zinc-300 hover:text-white text-xs font-mono font-medium rounded transition duration-150 cursor-pointer disabled:opacity-50"
+                    title="Export all Markdown files in the vault as a compressed ZIP archive"
+                  >
+                    {isExportingZip ? (
+                      <Loader2 className="h-3.5 w-3.5 animate-spin text-violet-400" />
+                    ) : (
+                      <Archive className="h-3.5 w-3.5 text-violet-400" />
+                    )}
+                    <span>{isExportingZip ? "Compressing Vault..." : `Export Workspace (.zip)`}</span>
                   </button>
                   {googleAccessToken && (
                     <div className="mt-1.5 flex items-center justify-between px-2 py-1 bg-zinc-900/45 border border-zinc-800/45 rounded text-[9px] font-mono text-zinc-500">
